@@ -53,8 +53,6 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
             if not widget_type.startswith('Recaptcha'):
                 field_value = form.cleaned_data[field.name]
 
-                print('Field value: ', field_value)
-
                 if widget_type == 'HoneyPotFieldWidget':
                     if field_value:
                         return None
