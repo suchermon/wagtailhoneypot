@@ -69,7 +69,6 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
                     self.kw_processor.add_keywords_from_list(keywords)
 
                     if self.kw_processor.extract_keywords(field_value):
-                        print('Not today satan')
                         return None
 
         for field in HONEYPOT_FIELDS:
