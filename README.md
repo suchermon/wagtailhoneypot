@@ -49,7 +49,7 @@ RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 
 # form_page.py
 
-from wagtailcaptcha.models importWagtailCaptchaEmailForm
+from wagtail.contrib.forms.models import AbstractFormField, FORM_FIELD_CHOICES
 from wagtailhoneypot.models import WagtailHoneypotEmailForm
 
 
