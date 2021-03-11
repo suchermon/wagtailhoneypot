@@ -23,7 +23,12 @@ OR `pipenv`
 `pipenv install -e git+https://github.com/suchermon/wagtailhoneypot.git@master#egg=wagtailhoneypot`
 ```
 
-Run `./manage.py migrate`
+### Environment Vars
+
+```python
+RECAPTCHA_PUBLIC_KEY = 'MyRecaptchaKey123'
+RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
+```
 
 ### Install the apps
 
@@ -37,12 +42,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-### Environment Vars
-
-```python
-RECAPTCHA_PUBLIC_KEY = 'MyRecaptchaKey123'
-RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
-```
+Run `./manage.py migrate`
 
 ## Setup
 
