@@ -18,6 +18,11 @@ def get_requirements_tests():
 setup(
     name='wagtailhoneypot',
     include_package_data=True,
+    install_requires=[
+        'django-recaptcha',
+        'wagtail-django-recaptcha',
+        'wagtail>=2.12',
+    ],
     packages=find_packages('.'),
     package_data={'wagtailhoneypot': [
         "templates/wagtailhoneypot/*.html",

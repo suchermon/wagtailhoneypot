@@ -4,17 +4,27 @@ A simple implementation of Honeypot for catching spammers. When they fill in the
 
 ## Dependencies
 
-I also like Captcha, so I built this on top of [wagtailcaptcha](https://github.com/springload/wagtail-django-recaptcha). You can still use the original wagtailcaptcha forms etc...
+I also like Captcha, so I built this on top of [Wwagtail Recaptcha](https://github.com/springload/wagtail-django-recaptcha). You can still use the original `wagtailcaptcha` forms etc...
 
-* Wagtail Django Captcha
-* Django-captcha
+* Wagtail 2.12+
+* [Wagtail Django Recaptcha](https://github.com/springload/wagtail-django-recaptcha)
+* [Django-Recaptcha](https://github.com/praekelt/django-recaptcha)
 
 ## Installation
 
 Get a [captcha key](https://www.google.com/recaptcha/intro/index.html)
 
+```bash
+`pip install -e 'git+https://github.com/suchermon/wagtailhoneypot.git@master#egg=wagtailhoneypot'`
+
+OR `pipenv`
+
+`pipenv install -e git+https://github.com/suchermon/wagtailhoneypot.git@master#egg=wagtailhoneypot`
+```
+
 ### Install the apps
 
+```python
 INSTALLED_APPS = [
     ...,
     'captcha',
@@ -22,6 +32,7 @@ INSTALLED_APPS = [
     'wagtailhoneypot',
     ...
 ]
+```
 
 ### Environment Vars
 
