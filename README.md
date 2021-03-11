@@ -95,8 +95,8 @@ class FormPage(WagtailHoneypotEmailForm):
 
 They still got through our honey pots?!! Well, you can go to **Settings -> Wagtailhoneypot**, you can add:
 
-* `domains` - add as many as domains you want, it'll look through the `EmailInput` fields and filter those out
-* `keywords` - it'll look through the `Textarea` input fields and look those keywords within
+* `domains` - add as many as domains you want, it'll look through the `EmailInput` fields and filter those out.
+* `keywords` - it'll look through the `Textarea` input fields and look for those keywords within and filter them out.
 
 ### Adding the Honey pots
 
