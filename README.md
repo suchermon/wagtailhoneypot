@@ -13,8 +13,6 @@ I also like Captcha, so I built this on top of [Wagtail Recaptcha](https://githu
 
 ## Installation
 
-Get a [captcha key](https://www.google.com/recaptcha/intro/index.html)
-
 ```bash
 `pip install -e 'git+https://github.com/suchermon/wagtailhoneypot.git@master#egg=wagtailhoneypot'`
 
@@ -24,6 +22,8 @@ OR `pipenv`
 ```
 
 ### Environment Vars
+
+Get a [captcha key](https://www.google.com/recaptcha/intro/index.html)
 
 ```python
 RECAPTCHA_PUBLIC_KEY = 'MyRecaptchaKey123'
