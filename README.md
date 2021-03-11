@@ -90,6 +90,9 @@ class FormPage(WagtailHoneypotEmailForm):
 {% endfor %}
 ```
 
+## Adding the Honey pots
+
+When you create a wagtail `formpage`, you will now see a form field type named `HoneyPot Field` at the very bottom. I suggest set up: `Email`, `Name`, or `Phone` as `HoneyPot Field`, and the actual fields you want `Your Name`, `Your Email` or something less generic. Be creative!
 
 ## Additional Settings
 
@@ -97,8 +100,3 @@ They still got through our honey pots?!! Well, you can go to **Settings -> Wagta
 
 * `domains` - add as many as domains you want, it'll look through the `EmailInput` fields and filter those out.
 * `keywords` - it'll look through the `Textarea` input fields and look for those keywords within and filter them out.
-
-### Adding the Honey pots
-
-When you create a wagtail `formpage`, you will now see a form field type named `HoneyPot Field` at the very bottom. I suggest set up: `Email`, `Name`, or `Phone` as `HoneyPot Field`, and the actual fields you want `Your Name`, `Your Email` or something less generic. Be creative!
-
