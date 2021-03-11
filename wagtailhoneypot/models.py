@@ -39,16 +39,24 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
         self.kw_processor = KeywordProcessor()
         super().__init__(*args, **kwargs)
 
+    def get_settings(self, request):
+        try:
+            self.settings = WagtailHoneyPotSettings.for_site(settings.SITE_ID)
+        except WagtailHoneyPotSettings.DoesNotExist:
+            self.settings = None
+
+        return self.settings
+
     def process_form_submission(self, form):
         HONEYPOT_FIELDS = []
 
-        try:
-            honeypot_settings = WagtailHoneyPotSettings.for_site(settings.SITE_ID)
-        except WagtailHoneyPotSettings.DoesNotExist:
-            honeypot_settings = None
+        if hasattr(self, 'settings'):
+            honeypot_settings = self.settings
 
         for field in form:
             widget_type = field.field.widget.__class__.__name__
+
+            print(widget_type)
 
             if not widget_type.startswith('Recaptcha'):
                 field_value = form.cleaned_data[field.name]
@@ -61,7 +69,8 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
 
                 if honeypot_settings and widget_type == 'EmailInput':
                     domain = field_value.split('@')[-1]
-                    if domain in [x for x in honeypot_settings.domains.split('\r\r')]:
+                    if domain in [x for x in honeypot_settings.domains.split('\r\n')]:
+                        print('Spam email address')
                         return None
 
                 if honeypot_settings and widget_type == 'Textarea':
@@ -76,6 +85,11 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
             form.fields.pop(field)
 
         return super().process_form_submission(form)
+
+    def serve(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            self.get_settings(request)
+        return super().serve(request, *args, **kwargs)
 
     class Meta:
         abstract = True
