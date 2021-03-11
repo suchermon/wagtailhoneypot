@@ -50,7 +50,7 @@ RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 # form_page.py
 
 from wagtail.contrib.forms.models import AbstractFormField, FORM_FIELD_CHOICES
-from wagtailhoneypot.models import WagtailHoneypotEmailForm
+from wagtailhoneypot.models import WagtailHoneypotForm, WagtailHoneypotEmailForm
 
 
 class FormField(AbstractFormField):
@@ -63,7 +63,12 @@ class FormField(AbstractFormField):
         choices=CHOICES
     )
 
+# Just a formpage
+class FormPage(WagtailHoneypotForm):
+    ...
 
+
+# For Email Form
 class FormPage(WagtailHoneypotEmailForm):
     ...
 ```
