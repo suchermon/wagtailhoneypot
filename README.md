@@ -2,7 +2,7 @@
 
 A simple implementation of Honeypot for catching spammers. When they fill in the `Honeypot` fields, their submission actually goes nowhere. Won't clog up our DB or anything. They will still see a "Thank you" is my way to tell them to go take a hike.
 
-## Dependencies
+## Dependencies and thanks to other packages
 
 I also like Captcha, so I built this on top of [Wagtail Recaptcha](https://github.com/springload/wagtail-django-recaptcha). You can still use the original `wagtailcaptcha` forms etc...
 
