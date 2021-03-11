@@ -44,6 +44,9 @@ RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 ## Setup
 
 ```python
+
+# form_page.py
+
 from wagtailcaptcha.models importWagtailCaptchaEmailForm
 from wagtailhoneypot.models import WagtailHoneypotEmailForm
 
@@ -61,6 +64,17 @@ class FormField(AbstractFormField):
 
 class FormPage(WagtailHoneypotEmailForm):
     ...
+```
+
+
+```jinja
+{% for field in form %}
+  {% if field.field.widget.input_type == 'honeypot' %}
+    {% bootstrap_field field show_label=False form_group_class='d-none' %}
+  {% else %}
+    {% bootstrap_field field %}
+  {% endif %}
+{% endfor %}
 ```
 
 ### Adding the Honey pots

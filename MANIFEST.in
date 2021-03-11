@@ -2,8 +2,8 @@ include LICENSE README.md
 global-exclude __pycache__
 global-exclude *.py[cod]
 
-include wagtailcookieconsent/templates/wagtailcookieconsent/ *
-include wagtailcookieconsent/templates/wagtailcookieconsent/forms/ *
+include wagtailhoneypot/templates/wagtailhoneypot/ *
+include wagtailhoneypot/templates/wagtailhoneypot/forms/ *
 
-recursive-include wagtailcookieconsent *.py *.css *.scss
-recursive-include wagtailcookieconsent/templates *.html
+recursive-include wagtailhoneypot *.py *.css *.scss
+recursive-include wagtailhoneypot/templates *.html
