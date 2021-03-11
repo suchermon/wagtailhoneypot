@@ -22,6 +22,8 @@ OR `pipenv`
 `pipenv install -e git+https://github.com/suchermon/wagtailhoneypot.git@master#egg=wagtailhoneypot`
 ```
 
+Run `./manage.py migrate`
+
 ### Install the apps
 
 ```python
