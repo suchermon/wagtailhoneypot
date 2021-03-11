@@ -75,6 +75,9 @@ class FormPage(WagtailHoneypotEmailForm):
 
 
 ```html
+
+<!-- form_page.html -->
+
 {% for field in form %}
   {% if field.field.widget.input_type == 'honeypot' %}
     <div style="visibility: hidden; height: 0;">
