@@ -67,16 +67,23 @@ class FormPage(WagtailHoneypotEmailForm):
 ```
 
 
-```jinja
+```html
 {% for field in form %}
   {% if field.field.widget.input_type == 'honeypot' %}
-    {% bootstrap_field field show_label=False form_group_class='d-none' %}
+    <div style="visibility: hidden; height: 0;">
+        {{ field }}
+    </div>
   {% else %}
-    {% bootstrap_field field %}
+    <!-- render your other fields -->
   {% endif %}
 {% endfor %}
 ```
 
+
+## Optional Settings
+
+They still got through our honey pots?!! Well, you can go to *Settings -> Wagtailhoneypot*, add their domains in there. We basically ignore those domains from processing just like the honey pot fields.
+
 ### Adding the Honey pots
 
-When you create a page, you will now see a form field type named `HoneyPot Field`. I suggest set up: `Email`, `Name`, or `Phone` as `HoneyPot Field`, and the actual fields you want `Your Name`, `Your Email` or something less generic. Be creative!
+When you create a wagtail `formpage`, you will now see a form field type named `HoneyPot Field` at the very bottom. I suggest set up: `Email`, `Name`, or `Phone` as `HoneyPot Field`, and the actual fields you want `Your Name`, `Your Email` or something less generic. Be creative!

@@ -1,21 +1,78 @@
+from django.forms import Textarea
+from django.conf import settings
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+from flashtext import KeywordProcessor
+
+from wagtail.admin.edit_handlers import FieldPanel
 from wagtailcaptcha.models import WagtailCaptchaForm, WagtailCaptchaEmailForm
+from wagtail.contrib.settings.models import BaseSetting, register_setting
 
 from .forms import WagtailHoneyPotFormBuilder
+
+
+@register_setting
+class WagtailHoneyPotSettings(BaseSetting):
+    domains = models.TextField(
+        blank=True,
+        verbose_name=_('Blocked by domains'),
+        help_text=_('Ex: spammers.com, one per line please')
+    )
+    keywords = models.TextField(
+        blank=True,
+        verbose_name=_('Keywords'),
+        help_text=_('Separate each keyword with comma or new line')
+    )
+
+    panels = [
+        FieldPanel('domains', widget=Textarea(attrs={'placeholder': _('One domain per line')})),
+        FieldPanel('keywords', widget=Textarea(attrs={'placeholder': _('Separate by commas')}))
+    ]
 
 
 class WagtailHoneypotForm(WagtailCaptchaForm):
     """Pages implementing a honeypot form should inherit from this"""
     form_builder = WagtailHoneyPotFormBuilder
 
+    def __init__(self, *args, **kwargs):
+        self.kw_processor = KeywordProcessor()
+        super().__init__(*args, **kwargs)
+
     def process_form_submission(self, form):
         HONEYPOT_FIELDS = []
+
+        try:
+            honeypot_settings = WagtailHoneyPotSettings.for_site(settings.SITE_ID)
+        except WagtailHoneyPotSettings.DoesNotExist:
+            honeypot_settings = None
+
         for field in form:
-            if hasattr(field.field.widget, 'input_type'):
-                if field.field.widget.input_type == 'honeypot':
-                    if form.cleaned_data[field.name]:
+            widget_type = field.field.widget.__class__.__name__
+
+            if not widget_type.startswith('Recaptcha'):
+                field_value = form.cleaned_data[field.name]
+
+                print('Field value: ', field_value)
+
+                if widget_type == 'HoneyPotFieldWidget':
+                    if field_value:
                         return None
                     else:
                         HONEYPOT_FIELDS.append(field.name)
+
+                if honeypot_settings and widget_type == 'EmailInput':
+                    domain = field_value.split('@')[-1]
+                    if domain in [x for x in honeypot_settings.domains.split('\r\r')]:
+                        return None
+
+                if honeypot_settings and widget_type == 'Textarea':
+                    keywords = [x.strip() for x in honeypot_settings.keywords.split(',')]
+                    self.kw_processor.add_keywords_from_list(keywords)
+
+                    if self.kw_processor.extract_keywords(field_value):
+                        print('Not today satan')
+                        return None
 
         for field in HONEYPOT_FIELDS:
             form.cleaned_data.pop(field)

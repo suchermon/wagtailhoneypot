@@ -19,6 +19,7 @@ setup(
     name='wagtailhoneypot',
     include_package_data=True,
     install_requires=[
+        'flashtext',
         'django-recaptcha',
         'wagtail-django-recaptcha',
         'wagtail>=2.12',
