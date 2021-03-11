@@ -4,11 +4,12 @@ A simple implementation of Honeypot for catching spammers. When they fill in the
 
 ## Dependencies
 
-I also like Captcha, so I built this on top of [Wwagtail Recaptcha](https://github.com/springload/wagtail-django-recaptcha). You can still use the original `wagtailcaptcha` forms etc...
+I also like Captcha, so I built this on top of [Wagtail Recaptcha](https://github.com/springload/wagtail-django-recaptcha). You can still use the original `wagtailcaptcha` forms etc...
 
 * Wagtail 2.12+
 * [Wagtail Django Recaptcha](https://github.com/springload/wagtail-django-recaptcha)
 * [Django-Recaptcha](https://github.com/praekelt/django-recaptcha)
+* [FlashText](https://flashtext.readthedocs.io/)
 
 ## Installation
 
@@ -90,10 +91,14 @@ class FormPage(WagtailHoneypotEmailForm):
 ```
 
 
-## Optional Settings
+## Additional Settings
 
-They still got through our honey pots?!! Well, you can go to *Settings -> Wagtailhoneypot*, add their domains in there. We basically ignore those domains from processing just like the honey pot fields.
+They still got through our honey pots?!! Well, you can go to **Settings -> Wagtailhoneypot**, you can add:
+
+* `domains` - add as many as domains you want, it'll look through the `EmailInput` fields and filter those out
+* `keywords` - it'll look through the `Textarea` input fields and look those keywords within
 
 ### Adding the Honey pots
 
 When you create a wagtail `formpage`, you will now see a form field type named `HoneyPot Field` at the very bottom. I suggest set up: `Email`, `Name`, or `Phone` as `HoneyPot Field`, and the actual fields you want `Your Name`, `Your Email` or something less generic. Be creative!
+
