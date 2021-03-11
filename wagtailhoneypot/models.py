@@ -1,5 +1,4 @@
 from django.forms import Textarea
-from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -41,7 +40,7 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
 
     def get_settings(self, request):
         try:
-            self.settings = WagtailHoneyPotSettings.for_site(settings.SITE_ID)
+            self.settings = WagtailHoneyPotSettings.for_request(request)
         except WagtailHoneyPotSettings.DoesNotExist:
             self.settings = None
 
@@ -56,8 +55,6 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
         for field in form:
             widget_type = field.field.widget.__class__.__name__
 
-            print(widget_type)
-
             if not widget_type.startswith('Recaptcha'):
                 field_value = form.cleaned_data[field.name]
 
@@ -70,7 +67,6 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
                 if honeypot_settings and widget_type == 'EmailInput':
                     domain = field_value.split('@')[-1]
                     if domain in [x for x in honeypot_settings.domains.split('\r\n')]:
-                        print('Spam email address')
                         return None
 
                 if honeypot_settings and widget_type == 'Textarea':
