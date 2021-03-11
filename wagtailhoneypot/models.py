@@ -36,6 +36,7 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
 
     def __init__(self, *args, **kwargs):
         self.kw_processor = KeywordProcessor()
+        self.HONEYPOT_FIELDS = []
         super().__init__(*args, **kwargs)
 
     def get_settings(self, request):
@@ -47,7 +48,6 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
         return self.settings
 
     def process_form_submission(self, form):
-        HONEYPOT_FIELDS = []
 
         if hasattr(self, 'settings'):
             honeypot_settings = self.settings
@@ -62,7 +62,7 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
                     if field_value:
                         return None
                     else:
-                        HONEYPOT_FIELDS.append(field.name)
+                        self.HONEYPOT_FIELDS.append(field.name)
 
                 if honeypot_settings and widget_type == 'EmailInput':
                     domain = field_value.split('@')[-1]
@@ -76,11 +76,18 @@ class WagtailHoneypotForm(WagtailCaptchaForm):
                     if self.kw_processor.extract_keywords(field_value):
                         return None
 
-        for field in HONEYPOT_FIELDS:
+        for field in self.HONEYPOT_FIELDS:
             form.cleaned_data.pop(field)
             form.fields.pop(field)
 
         return super().process_form_submission(form)
+
+    def get_data_fields(self):
+        data_fields = [
+            (field.clean_name, field.label)
+            for field in self.get_form_fields() if field.field_type != 'honeypot'
+        ]
+        return data_fields
 
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
