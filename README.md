@@ -23,7 +23,7 @@ OR `pipenv`
 
 ### Environment Vars
 
-Get a [captcha key](https://www.google.com/recaptcha/intro/index.html)
+Get a [captcha key](https://www.google.com/recaptcha/admin/create)
 
 ```python
 RECAPTCHA_PUBLIC_KEY = 'MyRecaptchaKey123'
