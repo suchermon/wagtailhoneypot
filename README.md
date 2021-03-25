@@ -1,6 +1,6 @@
 # Wagtail Honeypot
 
-A simple implementation of Honeypot for catching spammers. When they fill in the `Honeypot` fields, their submission actually goes nowhere. Won't clog up our DB or anything. They will still see a "Thank you" is my way to tell them to go take a hike.
+A simple implementation of Honeypot for catching spammers. When they fill in the `Honeypot` fields, their submission actually goes nowhere. Won't clog up our DB or anything. They will still see the "Thank you" page is my way to tell them to go take a hike.
 
 ## Dependencies and thanks to other packages
 
@@ -23,7 +23,7 @@ pipenv install -e git+https://github.com/suchermon/wagtailhoneypot.git@master#eg
 
 ### Environment Vars
 
-Get a [captcha key](https://www.google.com/recaptcha/intro/index.html)
+Get a [captcha key](https://www.google.com/recaptcha/admin/create)
 
 ```python
 RECAPTCHA_PUBLIC_KEY = 'MyRecaptchaKey123'
@@ -93,6 +93,7 @@ class FormPage(WagtailHoneypotEmailForm):
 {% endfor %}
 ```
 
+
 ### Native Django form
 
 ```python
@@ -114,14 +115,13 @@ If you use the above, the JS is required to remove the `required` attribute from
 {% endblock %}
 ```
 
+## Adding the Honey pots
+
+When you create a wagtail `formpage`, you will now see a form field type named `HoneyPot Field` at the very bottom. I suggest set up: `Email`, `Name`, or `Phone` as `HoneyPot Field`, and the actual fields you want `Your Name`, `Your Email` or something less generic. Be creative!
+
 ## Additional Settings
 
 They still got through our honey pots?!! Well, you can go to **Settings -> Wagtailhoneypot**, you can add:
 
 * `domains` - add as many as domains you want, it'll look through the `EmailInput` fields and filter those out.
 * `keywords` - it'll look through the `Textarea` input fields and look for those keywords within and filter them out.
-
-### Adding the Honey pots
-
-When you create a wagtail `formpage`, you will now see a form field type named `HoneyPot Field` at the very bottom. I suggest set up: `Email`, `Name`, or `Phone` as `HoneyPot Field`, and the actual fields you want `Your Name`, `Your Email` or something less generic. Be creative!
-
