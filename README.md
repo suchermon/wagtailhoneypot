@@ -14,11 +14,11 @@ I also like Captcha, so I built this on top of [Wagtail Recaptcha](https://githu
 ## Installation
 
 ```bash
-`pip install -e 'git+https://github.com/suchermon/wagtailhoneypot.git@master#egg=wagtailhoneypot'`
+pip install -e 'git+https://github.com/suchermon/wagtailhoneypot.git@master#egg=wagtailhoneypot'
 
 OR `pipenv`
 
-`pipenv install -e git+https://github.com/suchermon/wagtailhoneypot.git@master#egg=wagtailhoneypot`
+pipenv install -e git+https://github.com/suchermon/wagtailhoneypot.git@master#egg=wagtailhoneypot
 ```
 
 ### Environment Vars
@@ -74,22 +74,45 @@ class FormPage(WagtailHoneypotEmailForm):
     ...
 ```
 
-
-```html
+```jinja
 
 <!-- form_page.html -->
 
 {% for field in form %}
   {% if field.field.widget.input_type == 'honeypot' %}
-    <div style="visibility: hidden; height: 0;">
+    <div class="hp-formfield">
         {{ field }}
     </div>
   {% else %}
     <!-- render your other fields -->
   {% endif %}
+
+  {% block scripts %}
+    {{ form.media }}
+  {% endblock %}
 {% endfor %}
 ```
 
+### Native Django form
+
+```python
+
+from wagtailhoneypot.forms import HoneyPotFormField
+from wagtailhoneypot.widgets import HoneyPotFieldWidget
+
+class ContactForm(forms.Form):
+    phonenumber = HoneyPotField(widget=HoneyPotFieldWidget())
+
+```
+
+If you use the above, the JS is required to remove the `required` attribute from the `data-js="hp-formfield"` or you can write your own in jquery or whatever to remove them on submit.
+
+
+```
+{% block scripts %}
+    {{ form.media }}
+{% endblock %}
+```
 
 ## Additional Settings
 
