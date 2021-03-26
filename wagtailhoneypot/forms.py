@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django import forms
 from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
-from wagtailhoney.widgets import HoneyPotFieldWidget
+from .widgets import HoneyPotFieldWidget
 
 
 class HoneyPotFormField(forms.CharField):
