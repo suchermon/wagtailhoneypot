@@ -6,7 +6,9 @@ class HoneyPotFieldWidget(Input):
     template_name = 'wagtailhoneypot/forms/widgets/honeypot.html'
 
     class Media:
-        css = ('hp_form.css'),
+        css = {
+            'all': ('hp_form.css',)
+        }
         js = ('hp_form.js',)
 
     def __init__(self, attrs=None, *args, **kwargs):
