@@ -74,12 +74,13 @@ class FormPage(WagtailHoneypotEmailForm):
     ...
 ```
 
-```jinja
+```html
 
 <!-- form_page.html -->
 
 {% for field in form %}
   {% if field.field.widget.input_type == 'honeypot' %}
+    <!-- Don't recommend `display: none`, too easy for spammer to catch that. See hp_form.css for example -->
     <div class="hp-formfield">
         {{ field }}
     </div>
@@ -106,7 +107,7 @@ class ContactForm(forms.Form):
 
 ```
 
-If you use the above, the JS is required to remove the `required` attribute from the `data-js="hp-formfield"` or you can write your own in jquery or whatever to remove them on submit.
+If you use the above, the JS is required to remove the `required` attribute from the `data-js="hp-formfield"` or you can write your own in jquery or whatever to remove them on submit. I included a vanilla JS to do so. So make sure you include the scripts.
 
 
 ```

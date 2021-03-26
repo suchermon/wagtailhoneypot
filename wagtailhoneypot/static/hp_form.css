@@ -3,3 +3,9 @@
   top: -9999px !important;
   left: -9999px !important;
 }
+
+@media screen (any-hover: none) and speech {
+  .hp-formfield {
+    display: none;
+  }
+}
