@@ -21,7 +21,6 @@ setup(
     install_requires=[
         'flashtext',
         'django-recaptcha',
-        'wagtail-django-recaptcha',
         'wagtail>=2.12',
     ],
     packages=find_packages('.'),

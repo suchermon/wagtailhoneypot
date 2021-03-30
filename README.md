@@ -4,10 +4,8 @@ A simple implementation of Honeypot for catching spammers. When they fill in the
 
 ## Dependencies and thanks to other packages
 
-I also like Captcha, so I built this on top of [Wagtail Recaptcha](https://github.com/springload/wagtail-django-recaptcha). You can still use the original `wagtailcaptcha` forms etc...
-
-* Wagtail 2.12+
-* [Wagtail Django Recaptcha](https://github.com/springload/wagtail-django-recaptcha)
+* [Wagtail 2.12+](https://wagtail.io/)
+* [ReCaptcha V3](https://www.google.com/recaptcha/admin/create)
 * [Django-Recaptcha](https://github.com/praekelt/django-recaptcha)
 * [FlashText](https://flashtext.readthedocs.io/)
 
@@ -23,11 +21,11 @@ pipenv install -e git+https://github.com/suchermon/wagtailhoneypot.git@master#eg
 
 ### Environment Vars
 
-Get a [captcha key](https://www.google.com/recaptcha/admin/create)
+Get a set of [V3 reCaptcha key](https://www.google.com/recaptcha/admin/create)
 
 ```python
-RECAPTCHA_PUBLIC_KEY = 'MyRecaptchaKey123'
-RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 ```
 
 ### Install the apps
@@ -36,7 +34,6 @@ RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 INSTALLED_APPS = [
     ...,
     'captcha',
-    'wagtailcaptcha'
     'wagtailhoneypot',
     ...
 ]

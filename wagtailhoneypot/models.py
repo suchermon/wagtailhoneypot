@@ -5,10 +5,10 @@ from django.utils.translation import ugettext_lazy as _
 from flashtext import KeywordProcessor
 
 from wagtail.admin.edit_handlers import FieldPanel
-from wagtailcaptcha.models import WagtailCaptchaForm, WagtailCaptchaEmailForm
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractForm
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 
-from .forms import WagtailHoneyPotFormBuilder
+from .forms import WagtailCaptchaFormBuilder, WagtailHoneyPotFormBuilder, remove_captcha_field
 
 
 @register_setting
@@ -28,6 +28,27 @@ class WagtailHoneyPotSettings(BaseSetting):
         FieldPanel('domains', widget=Textarea(attrs={'placeholder': _('One domain per line')})),
         FieldPanel('keywords', widget=Textarea(attrs={'placeholder': _('Separate by commas')}))
     ]
+
+
+class WagtailCaptchaFormMixin:
+    form_builder = WagtailCaptchaFormBuilder
+
+    def process_form_submission(self, form):
+        remove_captcha_field(form)
+        return super(WagtailCaptchaEmailForm, self).process_form_submission(form)
+
+
+class WagtailCaptchaEmailForm(WagtailCaptchaFormMixin, AbstractEmailForm):
+    """
+    Original author: https://github.com/springload/wagtail-django-recaptcha/blob/master/wagtailcaptcha/models.py
+    """
+    class Meta:
+        abstract = True
+
+
+class WagtailCaptchaForm(WagtailCaptchaFormMixin, AbstractForm):
+    class Meta:
+        abstract = True
 
 
 class WagtailHoneypotForm(WagtailCaptchaForm):
