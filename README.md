@@ -21,12 +21,24 @@ pipenv install -e git+https://github.com/suchermon/wagtailhoneypot.git@master#eg
 
 ### Environment Vars
 
-Get a set of [V3 reCaptcha key](https://www.google.com/recaptcha/admin/create)
+Get a set of [V2 OR V3 reCaptcha key](https://www.google.com/recaptcha/admin/create)
+
+#### Basic Configs
 
 ```python
+WAGTAIL_HONEYPOT_CAPTCHA_VERSION = 2
+
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
+
+# For V3
+RECAPTCHA_REQUIRED_SCORE = 0.6 # or lower, very janky if higher than .6
+
 ```
+
+#### Additional `django-recaptcha` configs
+
+[https://github.com/praekelt/django-recaptcha](https://github.com/praekelt/django-recaptcha)
 
 ### Install the apps
 

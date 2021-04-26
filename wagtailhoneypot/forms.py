@@ -1,9 +1,13 @@
 from django import forms
+from django.conf import settings
 from wagtail.contrib.forms.forms import FormBuilder
 from .widgets import HoneyPotFieldWidget
 
 from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV3
+from captcha.widgets import ReCaptchaV3, ReCaptchaV2Checkbox
+
+
+CAPTCHA_VERSION = settings.WAGTWAGTAIL_HONEYPOT_CAPTCHA_VERSION
 
 
 class HoneyPotFormField(forms.CharField):
@@ -22,8 +26,11 @@ class WagtailCaptchaFormBuilder(FormBuilder):
     def formfields(self):
         # Add wagtailcaptcha to formfields property
         fields = super(WagtailCaptchaFormBuilder, self).formfields
-        fields[self.CAPTCHA_FIELD_NAME] = ReCaptchaField(label='', widget=ReCaptchaV3)
 
+        if CAPTCHA_VERSION == 3:
+            fields[self.CAPTCHA_FIELD_NAME] = ReCaptchaField(label='', widget=ReCaptchaV3)
+        else:
+            fields[self.CAPTCHA_FIELD_NAME] = ReCaptchaField(label='', widget=ReCaptchaV2Checkbox)
         return fields
 
 
