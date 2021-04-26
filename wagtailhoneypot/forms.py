@@ -7,7 +7,7 @@ from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3, ReCaptchaV2Checkbox
 
 
-CAPTCHA_VERSION = settings.WAGTWAGTAIL_HONEYPOT_CAPTCHA_VERSION
+CAPTCHA_VERSION = settings.WAGTAIL_HONEYPOT_CAPTCHA_VERSION
 
 
 class HoneyPotFormField(forms.CharField):
