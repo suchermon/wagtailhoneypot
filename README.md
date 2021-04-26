@@ -5,7 +5,7 @@ A simple implementation of Honeypot for catching spammers. When they fill in the
 ## Dependencies and thanks to other packages
 
 * [Wagtail 2.12+](https://wagtail.io/)
-* [ReCaptcha V3](https://www.google.com/recaptcha/admin/create)
+* [ReCaptcha V2 & V3](https://www.google.com/recaptcha/admin/create)
 * [Django-Recaptcha](https://github.com/praekelt/django-recaptcha)
 * [FlashText](https://flashtext.readthedocs.io/)
 
