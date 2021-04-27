@@ -26,13 +26,13 @@ Get a set of [V2 OR V3 reCaptcha key](https://www.google.com/recaptcha/admin/cre
 #### Basic Configs
 
 ```python
-WAGTAIL_HONEYPOT_CAPTCHA_VERSION = 2
+WAGTAIL_HONEYPOT_CAPTCHA_VERSION = 3 # default is 2
 
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 # For V3
-RECAPTCHA_REQUIRED_SCORE = 0.6 # or lower, very janky if higher than .6
+RECAPTCHA_REQUIRED_SCORE = 0.6 # or lower, very janky if higher than .6 especially for sign up forms
 
 ```
 

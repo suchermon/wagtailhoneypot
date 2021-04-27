@@ -16,7 +16,7 @@ def get_requirements_tests():
 
 setup(
     name='wagtailhoneypot',
-    version='1.0.2',
+    version='0.1.5',
     description='A wagtail package built on top of Django-captcha to add some honeypot fields for wagtail form builder, honeypot widgets can also be used with native Django forms.',
     long_desciption=long_desc,
     author='Mon Sucher',
