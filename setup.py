@@ -6,7 +6,8 @@ from setuptools import find_packages, setup
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 
-long_desc = open('README.md', 'rb').read().decode('utf-8')
+with open('README.md') as readme:
+    README = readme.read()
 
 
 def get_requirements_tests():
@@ -16,12 +17,6 @@ def get_requirements_tests():
 
 setup(
     name='wagtailhoneypot',
-    version='0.1.5',
-    description='A wagtail package built on top of Django-captcha to add some honeypot fields for wagtail form builder, honeypot widgets can also be used with native Django forms.',
-    long_desciption=long_desc,
-    author='Mon Sucher',
-    author_email='supawaza@gmail.com',
-    url='https://github.com/suchermon/wagtailhoneypot.git',
     include_package_data=True,
     install_requires=[
         'flashtext',
@@ -29,25 +24,10 @@ setup(
         'django-recaptcha',
         'wagtail>=2.12',
     ],
-    license='MIT',
-    keywords=['django', 'reCAPTCHA', 'honeypot', 'forms', 'anti-spam', 'reCAPCHA v2'],
-    packages=find_packages(),
+    packages=find_packages('.'),
     package_data={'wagtailhoneypot': [
         "templates/wagtailhoneypot/*.html",
         "templates/wagtailhoneypot/*/*.html",
-    ]},
-    classifiers=[
-        'Environment :: Web Environment',
-        'Framework :: Django',
-        'Framework :: Django :: 2.2',
-        'Framework :: Django :: 3.0.3',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-    ]
+        "static/*",
+    ]}
 )
